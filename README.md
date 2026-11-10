@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="InSeconds/Assets.xcassets/AppIcon.appiconset/AppIcon.png" width="180" alt="Roadster Rush app icon">
+  <img src="InSeconds/Assets.xcassets/AppIcon.appiconset/AppIcon.png" width="180" alt="InSeconds app icon">
 </p>
 
 <h1 align="center">InSeconds</h1>
@@ -63,6 +63,15 @@ The scene phase is forwarded from the App: on `.inactive`/`.background` the acti
 - **Why UIKit:** SwiftUI's `VideoPlayer` adds system controls and hides the layer, so `PlayerLayerView`
   wraps a `UIView` whose `layerClass` is `AVPlayerLayer` (with `.resizeAspectFill`).
 
+**4. Before production I would add:** a disk cache / `AVAssetResourceLoader` for downloaded segments;
+HLS (adaptive bitrate) instead of progressive MP4; tuning the prefetch window from real network data;
+retry with exponential backoff and offline detection; analytics (start time, stalls, completion);
+unit tests for `FeedViewModel`/`PlayerViewModel` (window logic, state transitions); a full accessibility
+review (VoiceOver, Dynamic Type); and structured logging (`os.Logger`) instead of `print`.
+
+**5. Left out because of the 2–3 hour limit:** likes/comments/connect actions, tab bar and navigation,
+backend/API and pagination, offline caching.
+
 ## Known limitations & assumptions
 
 - Sample videos are landscape (16:9), so `aspectFill` crops them on a portrait screen.
@@ -72,7 +81,6 @@ The scene phase is forwarded from the App: on `.inactive`/`.background` the acti
 - "Skip to next" on the last item wraps to the first item.
 - Header shows the logo only — the page counter was removed in the final design; page position is shown
   by the dots on the right.
-- iPhone is locked to portrait. Tested on the iOS simulator only, not on a physical device.
 
 ## Sources
 
